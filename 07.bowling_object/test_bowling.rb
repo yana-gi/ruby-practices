@@ -16,4 +16,19 @@ class TestBowling < Test::Unit::TestCase
     shot = Shot.new('X')
     assert_equal 10, shot.score
   end
+
+  def test_frame_shot_count_is_2
+    frame = Flame.new('1', '2')
+    assert_equal 3, frame.score
+  end
+
+  def test_frame_shot_count_is_3
+    frame = Flame.new('1', '2', '3')
+    assert_equal 6, frame.score
+  end
+
+  def test_frame_shot_is_strike
+    frame = Flame.new('10', '0')
+    assert_equal 10, frame.score
+  end
 end

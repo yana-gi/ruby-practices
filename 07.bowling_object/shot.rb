@@ -9,7 +9,7 @@ class Shot
     if @mark == 'X'
       10
     else
-      @mark
+      @mark.to_i
     end
   end
 end
