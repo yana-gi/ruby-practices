@@ -14,23 +14,14 @@ class Game
     frames = []
 
     NUM_FLAMES.times do |i|
-      frame = []
-      frame << results[count]
-
-      if results[count] == 'X' && i != (NUM_FLAMES - 1)
-        count += 1
-      else
-        count += 1
-        frame << results[count]
-        count += 1
-        frame << results[count] if i == (NUM_FLAMES - 1)
-      end
-      frames << frame
+      second_shot, third_shot = 0
+      first_shot = results[count]
+      second_shot = results[count += 1] if first_shot != 'X' || i == (NUM_FLAMES - 1)
+      third_shot = results[count += 1] if i == (NUM_FLAMES - 1)
+      frames << Flame.new(first_shot, second_shot, third_shot)
+      count += 1
     end
-
-    frames.map do |frame|
-      Flame.new(frame[0], frame[1], frame[2])
-    end
+    frames
   end
 
   def calculate_score
