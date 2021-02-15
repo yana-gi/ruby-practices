@@ -17,17 +17,17 @@ class TestBowling < Test::Unit::TestCase
     assert_equal 10, shot.score
   end
 
-  def test_frame_shot_count_is_2
+  def test_frame_second_shot
     frame = Flame.new('1', '2')
     assert_equal 3, frame.score
   end
 
-  def test_frame_shot_count_is_3
+  def test_frame_third_shot
     frame = Flame.new('1', '2', '3')
     assert_equal 6, frame.score
   end
 
-  def test_frame_shot_is_strike
+  def test_frame_is_strike
     frame = Flame.new('10', '0')
     assert_equal 10, frame.score
   end
@@ -35,11 +35,13 @@ class TestBowling < Test::Unit::TestCase
   def test_frame_strike?
     frame = Flame.new('10', '0')
     assert frame.strike?
+    assert !frame.spare?
   end
 
   def test_frame_spare?
     frame = Flame.new('2', '8')
     assert frame.spare?
+    assert !frame.strike?
   end
 
   def test_game_frames_count

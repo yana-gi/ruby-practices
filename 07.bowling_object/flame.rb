@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 class Flame
-  attr_accessor :first_shot, :second_shot, :third_shot
+  attr_reader :first_shot, :second_shot, :third_shot, :score
 
   def initialize(first_shot, second_shot, third_shot = nil)
     @first_shot = Shot.new(first_shot)
     @second_shot = Shot.new(second_shot)
     @third_shot = Shot.new(third_shot)
+    @score = calculate_score
   end
 
-  def score
+  def calculate_score
     @first_shot.score + @second_shot.score + @third_shot.score
   end
 
@@ -16,6 +19,6 @@ class Flame
   end
 
   def spare?
-    @first_shot.score + @second_shot.score == 10
+    !strike? && @first_shot.score + @second_shot.score == 10
   end
 end
