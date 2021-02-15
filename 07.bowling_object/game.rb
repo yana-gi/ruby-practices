@@ -2,11 +2,10 @@
 
 class Game
   NUM_FLAMES = 10
-  attr_reader :frames, :score
+  attr_reader :frames
 
   def initialize(result)
     @frames = create_frames(result.chars)
-    @score = calculate_score
   end
 
   def create_frames(results)
@@ -24,7 +23,7 @@ class Game
     frames
   end
 
-  def calculate_score
+  def score
     point = 0
     NUM_FLAMES.times do |i|
       point += @frames[i].score
