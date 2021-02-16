@@ -1,6 +1,5 @@
-require 'test/unit'
-require './shot'
-require './flame'
+# frozen_string_literal: true
+
 require './game'
 
 if __FILE__ == $PROGRAM_NAME

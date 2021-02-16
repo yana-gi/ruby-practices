@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './flame'
+
 class Game
   NUM_FLAMES = 10
   attr_reader :frames
@@ -20,6 +22,7 @@ class Game
       frames << Flame.new(first_shot, second_shot, third_shot)
       count += 1
     end
+
     frames
   end
 

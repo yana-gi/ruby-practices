@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './shot'
+
 class Flame
   attr_reader :first_shot, :second_shot, :third_shot
 

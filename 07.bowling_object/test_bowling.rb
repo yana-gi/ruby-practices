@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 require './bowling'
 
@@ -69,5 +71,4 @@ class TestBowling < Test::Unit::TestCase
     game = Game.new('XXXXXXXXX375')
     assert_equal 268, game.score
   end
-
 end
