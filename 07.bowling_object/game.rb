@@ -7,7 +7,7 @@ class Game
   attr_reader :frames
 
   def initialize(result)
-    @frames = create_frames(result.chars)
+    @frames = create_frames(result.split(','))
   end
 
   def create_frames(results)
