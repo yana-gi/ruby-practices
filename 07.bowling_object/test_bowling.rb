@@ -5,19 +5,17 @@ require './bowling'
 
 class TestBowling < Test::Unit::TestCase
   def test_shot_score
-    shot1 = Shot.new(1)
-    shotx = Shot.new('X')
-    assert_equal 1, shot1.score
-    assert_equal 10, shotx.score
+    assert_equal 1, Shot.new(1).score
+    assert_equal 10, Shot.new('X').score
+    assert_equal 0, Shot.new(nil).score
+
   end
 
   def test_frame_score
-    frame_two = Flame.new('1', '2')
-    frame_three = Flame.new('1', '2', '3')
-    frame_strike = Flame.new('10', '0')
-    assert_equal 3, frame_two.score
-    assert_equal 6, frame_three.score
-    assert_equal 10, frame_strike.score
+    assert_equal 3, Flame.new('1', '2').score
+    assert_equal 6, Flame.new('1', '2', '3').score
+    assert_equal 3, Flame.new('1', '2',nil).score
+    assert_equal 10, Flame.new('10', '0').score
   end
 
   def test_frame_strike?
