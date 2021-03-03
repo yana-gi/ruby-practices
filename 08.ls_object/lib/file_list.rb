@@ -10,7 +10,7 @@ class FileList
   end
 
   def puts
-    format_file_list = @options['l'] ? LongFormatFileList.new(@dir_path) : ShortFormatFileList.new(@dir_path)
+    format_file_list = @options['l'] ? LongFormatFileList.new(@dir_path, @options) : ShortFormatFileList.new(@dir_path, @options)
     format_file_list.rows
   end
 end

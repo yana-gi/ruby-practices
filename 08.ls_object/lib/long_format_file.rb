@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LongFormatFile
+  attr_reader :stat
+
   NUM_CONVERT_MAP = {
     0 => '---', 1 => '--x', 2 => '-w-', 3 => '-wx',
     4 => 'r--', 5 => 'r-x', 6 => 'rw-', 7 => 'rwx'

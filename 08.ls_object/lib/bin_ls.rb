@@ -1,8 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative 'file_list'
+
 require 'optparse'
-require 'pathname'
 
 options = ARGV.getopts('alr')
 input_dir = ARGV[0]
+
+puts FileList.new(input_dir, options).puts
