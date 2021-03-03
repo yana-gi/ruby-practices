@@ -7,26 +7,42 @@ class ShortFormatFileList
     @dir_path = File.expand_path(dir_path || '')
   end
 
-  def row
-    @file_list = []
+  def rows
+    file_list = []
     Dir.foreach(@dir_path).sort.each do |file|
       next if file.start_with?('.')
-      @file_list << ShortFormatFile.new(@dir_path, file).row
+
+      file_list << ShortFormatFile.new(@dir_path, file).row
     end
 
-    @name_len_max = @file_list.max_by { |k, _v| k }[0].length
-    @row_num = (@file_list.size * (@name_len_max + 2) / 10)
+    formated_file_list(file_list).join("\n")
+  end
 
-    @formated_file_list = []
-    @row_num.times { @formated_file_list << [] }
+  private
 
-    @file_list.each_with_index do |name, idx|
-      formated_name = name.ljust(@name_len_max + 2)
-      row_idx = idx % @row_num
+  def formated_file_list(file_list)
+    formated_file_list = []
+    row_num.times { formated_file_list << '' }
 
-      @formated_file_list[row_idx].push(formated_name)
+    file_list.each_with_index do |name, idx|
+      formated_name = name.ljust(name_len_max)
+      row_idx = idx % row_num
+
+      formated_file_list[row_idx] += formated_name
     end
 
-    @formated_file_list
+    formated_file_list
+  end
+
+  def name_len_max
+    file_name_list = []
+    Dir.foreach(@dir_path) { |f| file_name_list << f }
+    file_name_list.max_by(&:length).length
+  end
+
+  def row_num
+    file_name_list = []
+    Dir.foreach(@dir_path) { |f| file_name_list << f }
+    file_name_list.size / 8
   end
 end

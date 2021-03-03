@@ -8,13 +8,12 @@ class LongFormatFileList
   end
 
   def rows
-    @file_list = {}
+    file_list = []
     Dir.foreach(@dir_path).sort.each do |file|
       next if file.start_with?('.')
 
-      @file_list[file] = LongFormatFile.new(@dir_path, file).row
+      file_list << LongFormatFile.new(@dir_path, file).row
     end
-    # @files = @files.to_a.reverse.to_h if @option_r
-    @file_list
+    file_list.join("\n")
   end
 end
