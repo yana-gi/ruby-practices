@@ -18,9 +18,12 @@ class FileListTest < MiniTest::Unit::TestCase
 
   def test_option_dot_match
     expected = <<~TEXT.chomp
-      .               .Dir_B          .file_C.txt     Dir_b           file_c.txt      sym_lnk_cal.rb
-      ..              .file_A.txt     .file_D.txt     file_a.txt      file_d.txt
-      .Dir_A          .file_B.txt     Dir_a           file_b.txt      hd_lnk_cal.rb
+      .               .file_C.txt     file_c.txt
+      ..              .file_D.txt     file_d.txt
+      .Dir_A          Dir_a           hd_lnk_cal.rb
+      .Dir_B          Dir_b           sym_lnk_cal.rb
+      .file_A.txt     file_a.txt
+      .file_B.txt     file_b.txt
     TEXT
     params = { dot_match: true, reverse: false, long_format: false }
     assert_equal expected, FileList.new(DIR_PATH, params).load

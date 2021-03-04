@@ -4,7 +4,7 @@ require_relative '../lib/long_format_file'
 require_relative '../lib/short_format_file'
 
 class FileList
-  SHORT_FORMAT_ROW_NUM = 3
+  SHORT_FORMAT_COLUMN_NUM = 3
 
   def initialize(dir_path, params)
     @dir_path = File.expand_path(dir_path || '')
@@ -61,16 +61,21 @@ class FileList
   end
 
   def transpose(file_list)
-    formated_file_list = []
-    SHORT_FORMAT_ROW_NUM.times { formated_file_list << '' }
+    transposed_file_list = []
+    short_format_row_num.times { transposed_file_list << '' }
 
     file_list.each_with_index do |name, idx|
       formated_name = name.ljust(name_len_max + 2)
-      row_idx = idx % SHORT_FORMAT_ROW_NUM
+      row_idx = idx % short_format_row_num
 
-      formated_file_list[row_idx] += formated_name
+      transposed_file_list[row_idx] += formated_name
     end
-    formated_file_list.map(&:strip)
+    transposed_file_list.map(&:strip)
+  end
+
+  def short_format_row_num
+    files = dot_match? ? Dir.glob("#{@dir_path}/*", File::FNM_DOTMATCH) : Dir.glob("#{@dir_path}/*")
+    files.count / SHORT_FORMAT_COLUMN_NUM + 1
   end
 
   def name_len_max
