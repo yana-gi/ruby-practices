@@ -12,21 +12,33 @@ class FileList
   end
 
   def load
-    @params[:long_format] ? long_format_row_list : short_format_row_list
+    long_format? ? long_format_row_list : short_format_row_list
   end
 
   private
 
+  def long_format?
+    @params[:long_format]
+  end
+
+  def reverse?
+    @params[:reverse]
+  end
+
+  def dot_match?
+    @params[:dot_match]
+  end
+
   def short_format_row_list
     file_row_list = []
     Dir.foreach(@dir_path).sort.each do |file|
-      next if file.start_with?('.') && !@params[:dot_match]
+      next if file.start_with?('.') && !dot_match?
 
       file_row = ShortFormatFile.new(@dir_path, file)
       file_row_list << file_row.format
     end
 
-    file_row_list = file_row_list.reverse if @params[:reverse]
+    file_row_list = file_row_list.reverse if reverse?
     file_row_list = transpose(file_row_list)
     file_row_list.join("\n")
   end
@@ -36,14 +48,14 @@ class FileList
     total_block = 0
 
     Dir.foreach(@dir_path).sort.each do |file|
-      next if file.start_with?('.') && !@params[:dot_match]
+      next if file.start_with?('.') && !dot_match?
 
       file_row = LongFormatFile.new(@dir_path, file)
       file_row_list << file_row.format
       total_block += file_row.stat.blocks
     end
 
-    file_row_list = file_row_list.reverse if @params[:reverse]
+    file_row_list = file_row_list.reverse if reverse?
     file_row_list.unshift("total #{total_block}")
     file_row_list.join("\n")
   end
