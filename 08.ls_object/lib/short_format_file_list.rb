@@ -15,10 +15,13 @@ class ShortFormatFileList
     Dir.foreach(@dir_path).sort.each do |file|
       next if file.start_with?('.') && !@options['a']
 
-      file_list << ShortFormatFile.new(@dir_path, file).row
+      format_file = ShortFormatFile.new(@dir_path, file)
+      file_list << format_file.row
     end
 
-    formated_file_list(file_list).join("\n")
+    file_list = file_list.reverse if @options['r']
+    file_list = formated_file_list(file_list)
+    file_list.join("\n")
   end
 
   private
@@ -26,8 +29,6 @@ class ShortFormatFileList
   def formated_file_list(file_list)
     formated_file_list = []
     ROW_NUM.times { formated_file_list << '' }
-
-    file_list = file_list.reverse if @options['r']
 
     file_list.each_with_index do |name, idx|
       formated_name = name.ljust(name_len_max + 2)

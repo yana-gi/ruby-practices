@@ -19,6 +19,7 @@ class LongFormatFileList
       file_list << format_file.row
       total_block += format_file.stat.blocks
     end
+
     file_list = file_list.reverse if @options['r']
     file_list.unshift("total #{total_block}")
     file_list.join("\n")
