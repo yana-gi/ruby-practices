@@ -8,4 +8,4 @@ require 'optparse'
 options = ARGV.getopts('alr')
 input_dir = ARGV[0]
 
-puts FileList.new(input_dir, options).puts
+puts FileList.new(input_dir, options).load

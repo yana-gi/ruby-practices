@@ -6,7 +6,7 @@ class ShortFormatFile
     @file_name = file_name
   end
 
-  def row
+  def format
     @file_name
   end
 end

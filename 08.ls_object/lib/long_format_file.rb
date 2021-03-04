@@ -14,7 +14,7 @@ class LongFormatFile
     @stat = File.lstat("#{@file_path}/#{@file_name}")
   end
 
-  def row
+  def format
     @file_full_path = "#{@file_path}/#{@file_name}"
     @max_size_len = 1
 

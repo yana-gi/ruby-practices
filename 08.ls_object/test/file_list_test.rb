@@ -13,7 +13,7 @@ class FileListTest < MiniTest::Unit::TestCase
       file_a.txt      file_d.txt
     TEXT
     options = { 'a' => false, 'r' => false, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 
   def test_option_dot_match
@@ -23,7 +23,7 @@ class FileListTest < MiniTest::Unit::TestCase
       .Dir_A          .file_B.txt     Dir_a           file_b.txt      hd_lnk_cal.rb
     TEXT
     options = { 'a' => true, 'r' => false, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 
   def test_reverse
@@ -33,7 +33,7 @@ class FileListTest < MiniTest::Unit::TestCase
       file_d.txt      file_a.txt
     TEXT
     options = { 'a' => false, 'r' => true, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 
   def test_reverse_dot_match
@@ -43,7 +43,7 @@ class FileListTest < MiniTest::Unit::TestCase
       file_d.txt      file_a.txt      .file_D.txt     .file_A.txt     ..
     TEXT
     options = { 'a' => true, 'r' => true, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 
   def test_option_long
@@ -59,7 +59,7 @@ class FileListTest < MiniTest::Unit::TestCase
       -rwxr--r--  1 yana  staff  1477  3  3 17:26 sym_lnk_cal.rb
     TEXT
     options = { 'a' => false, 'r' => false, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 
   def test_option_long_and_dot_match
@@ -83,7 +83,7 @@ class FileListTest < MiniTest::Unit::TestCase
       -rwxr--r--  1 yana  staff  1477  3  3 17:26 sym_lnk_cal.rb
     TEXT
     options = { 'a' => true, 'r' => false, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 
   def test_option_long_and_reverse
@@ -99,7 +99,7 @@ class FileListTest < MiniTest::Unit::TestCase
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_a
     TEXT
     options = { 'a' => false, 'r' => true, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 
   def test_option_long_and_reverse_and_dot_match
@@ -123,6 +123,6 @@ class FileListTest < MiniTest::Unit::TestCase
       drwxr-xr-x 16 yana  staff  512  3  2 19:03 .
     TEXT
     options = { 'a' => true, 'r' => true, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, options).puts
+    assert_equal expected, FileList.new(DIR_PATH, options).load
   end
 end

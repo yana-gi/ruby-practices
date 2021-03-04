@@ -11,44 +11,44 @@ class FileList
     @options = options
   end
 
-  def puts
-    @options['l'] ? long_rows : short_rows
+  def load
+    @options['l'] ? long_format_row_list : short_format_row_list
   end
 
-  def short_rows
-    file_list = []
+  private
+
+  def short_format_row_list
+    file_row_list = []
     Dir.foreach(@dir_path).sort.each do |file|
       next if file.start_with?('.') && !@options['a']
 
-      format_file = ShortFormatFile.new(@dir_path, file)
-      file_list << format_file.row
+      file_row = ShortFormatFile.new(@dir_path, file)
+      file_row_list << file_row.format
     end
 
-    file_list = file_list.reverse if @options['r']
-    file_list = formated_file_list(file_list)
-    file_list.join("\n")
+    file_row_list = file_row_list.reverse if @options['r']
+    file_row_list = transpose(file_row_list)
+    file_row_list.join("\n")
   end
 
-  def long_rows
-    file_list = []
+  def long_format_row_list
+    file_row_list = []
     total_block = 0
 
     Dir.foreach(@dir_path).sort.each do |file|
       next if file.start_with?('.') && !@options['a']
 
-      format_file = LongFormatFile.new(@dir_path, file)
-      file_list << format_file.row
-      total_block += format_file.stat.blocks
+      file_row = LongFormatFile.new(@dir_path, file)
+      file_row_list << file_row.format
+      total_block += file_row.stat.blocks
     end
 
-    file_list = file_list.reverse if @options['r']
-    file_list.unshift("total #{total_block}")
-    file_list.join("\n")
+    file_row_list = file_row_list.reverse if @options['r']
+    file_row_list.unshift("total #{total_block}")
+    file_row_list.join("\n")
   end
 
-  private
-
-  def formated_file_list(file_list)
+  def transpose(file_list)
     formated_file_list = []
     SHORT_FORMAT_ROW_NUM.times { formated_file_list << '' }
 
