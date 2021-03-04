@@ -6,13 +6,13 @@ require_relative '../lib/short_format_file'
 class FileList
   SHORT_FORMAT_ROW_NUM = 3
 
-  def initialize(dir_path, options)
+  def initialize(dir_path, params)
     @dir_path = File.expand_path(dir_path || '')
-    @options = options
+    @params = params
   end
 
   def load
-    @options['l'] ? long_format_row_list : short_format_row_list
+    @params[:long_format] ? long_format_row_list : short_format_row_list
   end
 
   private
@@ -20,13 +20,13 @@ class FileList
   def short_format_row_list
     file_row_list = []
     Dir.foreach(@dir_path).sort.each do |file|
-      next if file.start_with?('.') && !@options['a']
+      next if file.start_with?('.') && !@params[:dot_match]
 
       file_row = ShortFormatFile.new(@dir_path, file)
       file_row_list << file_row.format
     end
 
-    file_row_list = file_row_list.reverse if @options['r']
+    file_row_list = file_row_list.reverse if @params[:reverse]
     file_row_list = transpose(file_row_list)
     file_row_list.join("\n")
   end
@@ -36,14 +36,14 @@ class FileList
     total_block = 0
 
     Dir.foreach(@dir_path).sort.each do |file|
-      next if file.start_with?('.') && !@options['a']
+      next if file.start_with?('.') && !@params[:dot_match]
 
       file_row = LongFormatFile.new(@dir_path, file)
       file_row_list << file_row.format
       total_block += file_row.stat.blocks
     end
 
-    file_row_list = file_row_list.reverse if @options['r']
+    file_row_list = file_row_list.reverse if @params[:reverse]
     file_row_list.unshift("total #{total_block}")
     file_row_list.join("\n")
   end
