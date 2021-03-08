@@ -41,9 +41,12 @@ class FileListTest < MiniTest::Unit::TestCase
 
   def test_reverse_dot_match
     expected = <<~TEXT.chomp
-      sym_lnk_cal.rb  file_c.txt      Dir_b           .file_C.txt     .Dir_B          .
-      hd_lnk_cal.rb   file_b.txt      Dir_a           .file_B.txt     .Dir_A
-      file_d.txt      file_a.txt      .file_D.txt     .file_A.txt     ..
+      sym_lnk_cal.rb  Dir_b           .Dir_B
+      hd_lnk_cal.rb   Dir_a           .Dir_A
+      file_d.txt      .file_D.txt     ..
+      file_c.txt      .file_C.txt     .
+      file_b.txt      .file_B.txt
+      file_a.txt      .file_A.txt
     TEXT
     params = { dot_match: true, reverse: true, long_format: false }
     assert_equal expected, FileList.new(DIR_PATH, params).load
