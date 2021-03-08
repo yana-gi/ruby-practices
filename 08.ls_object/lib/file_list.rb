@@ -60,17 +60,17 @@ class FileList
     file_row_list.join("\n")
   end
 
-  def transpose(file_list)
-    transposed_file_list = []
-    short_format_row_num.times { transposed_file_list << '' }
+  def transpose(file_row_list)
+    transposed_file_row_list = []
+    short_format_row_num.times { transposed_file_row_list << '' }
 
-    file_list.each_with_index do |name, idx|
-      formated_name = name.ljust(name_len_max + 2)
+    file_row_list.each_with_index do |name, idx|
+      formated_name = name.ljust(name_max_length + 2)
       row_idx = idx % short_format_row_num
 
-      transposed_file_list[row_idx] += formated_name
+      transposed_file_row_list[row_idx] += formated_name
     end
-    transposed_file_list.map(&:strip)
+    transposed_file_row_list.map(&:strip)
   end
 
   def short_format_row_num
@@ -78,7 +78,7 @@ class FileList
     files.count / SHORT_FORMAT_COLUMN_NUM + 1
   end
 
-  def name_len_max
+  def name_max_length
     file_name_list = []
     Dir.foreach(@dir_path) { |f| file_name_list << f }
     file_name_list.max_by(&:length).length
