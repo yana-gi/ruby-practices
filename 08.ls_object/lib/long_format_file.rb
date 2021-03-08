@@ -11,7 +11,8 @@ class LongFormatFile
   def initialize(file_path, file_name)
     @file_path = file_path
     @file_name = file_name
-    @stat = File.lstat("#{@file_path}/#{@file_name}")
+    @file_full_path = "#{file_path}/#{file_name}"
+    @stat = File.lstat(@file_full_path)
   end
 
   def format
