@@ -18,15 +18,15 @@ class FileList
   private
 
   def long_format?
-    @params[:long_format]
+    @params['l']
   end
 
   def reverse?
-    @params[:reverse]
+    @params['r']
   end
 
   def dot_match?
-    @params[:dot_match]
+    @params['a']
   end
 
   def file_name_list
