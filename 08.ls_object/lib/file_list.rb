@@ -74,7 +74,7 @@ class FileList
   end
 
   def short_format_row_num
-    file_name_list.count / SHORT_FORMAT_COLUMN_NUM + 1
+    (file_name_list.count.to_f / SHORT_FORMAT_COLUMN_NUM).ceil
   end
 
   def name_max_length
