@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'etc'
+
 class LongFormatFile
   attr_reader :stat
 
@@ -16,15 +18,13 @@ class LongFormatFile
   end
 
   def format
-    "#{filemode}#{permission} #{nlink} #{user}  #{group}  #{size} #{timestamp} #{filename}"
+    "#{filemode}#{permission} #{nlink} #{user}  #{group}  #{size} #{timestamp} #{@file_name}"
   end
 
   private
 
   def filemode
-    if FileTest.symlink?(@file_full_path)
-      'l'
-    elsif @stat.ftype == 'directory'
+    if @stat.ftype == 'directory'
       'd'
     elsif @stat.ftype == 'file'
       '-'

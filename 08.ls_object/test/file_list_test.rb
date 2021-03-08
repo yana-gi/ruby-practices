@@ -61,8 +61,8 @@ class FileListTest < MiniTest::Unit::TestCase
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_b.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_c.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_d.txt
-      lrwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb -> test/sample_dir/link/hd_lnk_cal.rb
-      lrwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb -> test/sample_dir/link/sym_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb
     TEXT
     params = { 'a' => false, 'r' => false, 'l' => true }
     assert_equal expected, FileList.new(DIR_PATH, params).load
@@ -85,8 +85,8 @@ class FileListTest < MiniTest::Unit::TestCase
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_b.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_c.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_d.txt
-      lrwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb -> test/sample_dir/link/hd_lnk_cal.rb
-      lrwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb -> test/sample_dir/link/sym_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb
     TEXT
     params = { 'a' => true, 'r' => false, 'l' => true }
     assert_equal expected, FileList.new(DIR_PATH, params).load
@@ -95,8 +95,8 @@ class FileListTest < MiniTest::Unit::TestCase
   def test_option_long_and_reverse
     expected = <<~TEXT.chomp
       total 0
-      lrwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb -> test/sample_dir/link/sym_lnk_cal.rb
-      lrwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb -> test/sample_dir/link/hd_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_d.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_c.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_b.txt
@@ -111,8 +111,8 @@ class FileListTest < MiniTest::Unit::TestCase
   def test_option_long_and_reverse_and_dot_match
     expected = <<~TEXT.chomp
       total 0
-      lrwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb -> test/sample_dir/link/sym_lnk_cal.rb
-      lrwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb -> test/sample_dir/link/hd_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  35  3  8 18:25 sym_lnk_cal.rb
+      -rwxr-xr-x  1 yana  staff  34  3  8 18:25 hd_lnk_cal.rb
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_d.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_c.txt
       -rw-r--r--  1 yana  staff  0  3  3 17:26 file_b.txt
