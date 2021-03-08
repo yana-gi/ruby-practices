@@ -15,9 +15,6 @@ class LongFormatFile
   end
 
   def format
-    @file_full_path = "#{@file_path}/#{@file_name}"
-    @max_size_len = 1
-
     "#{filemode}#{permission} #{nlink} #{user}  #{group}  #{size} #{timestamp} #{filename}"
   end
 
@@ -51,7 +48,7 @@ class LongFormatFile
   end
 
   def size
-    @stat.size.to_s.rjust(@max_size_len)
+    @stat.size.to_s
   end
 
   def timestamp
