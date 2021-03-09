@@ -7,7 +7,7 @@ class LongFormatFileTest < Minitest::Test
   def test_file_rows
     file_path = './test/sample_dir/lsDir'
     file_name = 'file_a.txt'
-    assert_equal '-rw-r--r--  1 yana  staff  0  3  3 17:26 file_a.txt', LongFormatFile.new(file_path, file_name).format
+    assert_equal '-rw-r--r--  1 yana  staff  5  3  8 19:59 file_a.txt', LongFormatFile.new(file_path, file_name).format
   end
 
   def test_dir_rows
