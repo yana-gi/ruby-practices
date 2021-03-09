@@ -53,10 +53,10 @@ class FileListTest < MiniTest::Unit::TestCase
       total 32
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_a
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_b
-      -rw-r--r--  1 yana  staff  5  3  8 19:59 file_a.txt
-      -rw-r--r--  1 yana  staff  14  3  8 19:59 file_b.txt
-      -rw-r--r--  1 yana  staff  27  3  8 19:59 file_c.txt
-      -rw-r--r--  1 yana  staff  44  3  8 19:59 file_d.txt
+      -rw-r--r--  1 yana  staff  5  3  9 17:52 file_a.txt
+      -rw-r--r--  1 yana  staff  14  3  9 17:52 file_b.txt
+      -rw-r--r--  1 yana  staff  27  3  9 17:52 file_c.txt
+      -rw-r--r--  1 yana  staff  44  3  9 17:52 file_d.txt
     TEXT
     params = { 'a' => false, 'r' => false, 'l' => true }
     assert_equal expected, FileList.new(DIR_PATH, params).load
@@ -65,20 +65,20 @@ class FileListTest < MiniTest::Unit::TestCase
   def test_option_long_and_dot_match
     expected = <<~TEXT.chomp
       total 64
-      drwxr-xr-x 14 yana  staff  448  3  8 19:59 .
+      drwxr-xr-x 14 yana  staff  448  3  9 17:52 .
       drwxr-xr-x  4 yana  staff  128  3  8 19:14 ..
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 .Dir_A
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 .Dir_B
-      -rw-r--r--  1 yana  staff  5  3  8 19:58 .file_A.txt
-      -rw-r--r--  1 yana  staff  14  3  8 19:58 .file_B.txt
-      -rw-r--r--  1 yana  staff  27  3  8 19:58 .file_C.txt
-      -rw-r--r--  1 yana  staff  44  3  8 19:59 .file_D.txt
+      -rw-r--r--  1 yana  staff  5  3  9 17:52 .file_A.txt
+      -rw-r--r--  1 yana  staff  14  3  9 17:52 .file_B.txt
+      -rw-r--r--  1 yana  staff  27  3  9 17:52 .file_C.txt
+      -rw-r--r--  1 yana  staff  44  3  9 17:52 .file_D.txt
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_a
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_b
-      -rw-r--r--  1 yana  staff  5  3  8 19:59 file_a.txt
-      -rw-r--r--  1 yana  staff  14  3  8 19:59 file_b.txt
-      -rw-r--r--  1 yana  staff  27  3  8 19:59 file_c.txt
-      -rw-r--r--  1 yana  staff  44  3  8 19:59 file_d.txt
+      -rw-r--r--  1 yana  staff  5  3  9 17:52 file_a.txt
+      -rw-r--r--  1 yana  staff  14  3  9 17:52 file_b.txt
+      -rw-r--r--  1 yana  staff  27  3  9 17:52 file_c.txt
+      -rw-r--r--  1 yana  staff  44  3  9 17:52 file_d.txt
     TEXT
     params = { 'a' => true, 'r' => false, 'l' => true }
     assert_equal expected, FileList.new(DIR_PATH, params).load
@@ -87,10 +87,10 @@ class FileListTest < MiniTest::Unit::TestCase
   def test_option_long_and_reverse
     expected = <<~TEXT.chomp
       total 32
-      -rw-r--r--  1 yana  staff  44  3  8 19:59 file_d.txt
-      -rw-r--r--  1 yana  staff  27  3  8 19:59 file_c.txt
-      -rw-r--r--  1 yana  staff  14  3  8 19:59 file_b.txt
-      -rw-r--r--  1 yana  staff  5  3  8 19:59 file_a.txt
+      -rw-r--r--  1 yana  staff  44  3  9 17:52 file_d.txt
+      -rw-r--r--  1 yana  staff  27  3  9 17:52 file_c.txt
+      -rw-r--r--  1 yana  staff  14  3  9 17:52 file_b.txt
+      -rw-r--r--  1 yana  staff  5  3  9 17:52 file_a.txt
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_b
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_a
     TEXT
@@ -101,20 +101,20 @@ class FileListTest < MiniTest::Unit::TestCase
   def test_option_long_and_reverse_and_dot_match
     expected = <<~TEXT.chomp
       total 64
-      -rw-r--r--  1 yana  staff  44  3  8 19:59 file_d.txt
-      -rw-r--r--  1 yana  staff  27  3  8 19:59 file_c.txt
-      -rw-r--r--  1 yana  staff  14  3  8 19:59 file_b.txt
-      -rw-r--r--  1 yana  staff  5  3  8 19:59 file_a.txt
+      -rw-r--r--  1 yana  staff  44  3  9 17:52 file_d.txt
+      -rw-r--r--  1 yana  staff  27  3  9 17:52 file_c.txt
+      -rw-r--r--  1 yana  staff  14  3  9 17:52 file_b.txt
+      -rw-r--r--  1 yana  staff  5  3  9 17:52 file_a.txt
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_b
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_a
-      -rw-r--r--  1 yana  staff  44  3  8 19:59 .file_D.txt
-      -rw-r--r--  1 yana  staff  27  3  8 19:58 .file_C.txt
-      -rw-r--r--  1 yana  staff  14  3  8 19:58 .file_B.txt
-      -rw-r--r--  1 yana  staff  5  3  8 19:58 .file_A.txt
+      -rw-r--r--  1 yana  staff  44  3  9 17:52 .file_D.txt
+      -rw-r--r--  1 yana  staff  27  3  9 17:52 .file_C.txt
+      -rw-r--r--  1 yana  staff  14  3  9 17:52 .file_B.txt
+      -rw-r--r--  1 yana  staff  5  3  9 17:52 .file_A.txt
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 .Dir_B
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 .Dir_A
       drwxr-xr-x  4 yana  staff  128  3  8 19:14 ..
-      drwxr-xr-x 14 yana  staff  448  3  8 19:59 .
+      drwxr-xr-x 14 yana  staff  448  3  9 17:52 .
     TEXT
     params = { 'a' => true, 'r' => true, 'l' => true }
     assert_equal expected, FileList.new(DIR_PATH, params).load

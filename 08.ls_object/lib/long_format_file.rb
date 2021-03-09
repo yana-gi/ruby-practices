@@ -24,9 +24,10 @@ class LongFormatFile
   private
 
   def filemode
-    if @stat.ftype == 'directory'
+    case @stat.ftype
+    when 'directory'
       'd'
-    elsif @stat.ftype == 'file'
+    when 'file'
       '-'
     end
   end
