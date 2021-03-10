@@ -4,80 +4,24 @@ require_relative '../lib/long_format_file'
 require_relative '../lib/short_format_file'
 
 class FileList
-  SHORT_FORMAT_COLUMN_NUM = 3
+  attr_reader :max_name_length, :count
 
-  def initialize(dir_path, params)
-    @dir_path = File.expand_path(dir_path || '')
-    @params = params
+  def initialize(parameter)
+    @parameter = parameter
   end
 
-  def load
-    long_format? ? long_format_row_list : short_format_row_list
+  def get
+    files = @parameter.dot_match? ? Dir.glob("#{@parameter.dir_path}/*", File::FNM_DOTMATCH) : Dir.glob("#{@parameter.dir_path}/*")
+    files = files.sort.map { |f| File.basename(f) }
+    files = files.reverse if @parameter.reverse?
+    files
   end
 
-  private
-
-  def long_format?
-    @params['l']
+  def max_name_length
+    @max_name_length ||= get.max_by(&:length).length
   end
 
-  def reverse?
-    @params['r']
-  end
-
-  def dot_match?
-    @params['a']
-  end
-
-  def file_name_list
-    files = dot_match? ? Dir.glob("#{@dir_path}/*", File::FNM_DOTMATCH) : Dir.glob("#{@dir_path}/*")
-    files.map { |f| File.basename(f) }
-  end
-
-  def short_format_row_list
-    file_row_list = []
-
-    file_name_list.sort.each do |file|
-      file_row = ShortFormatFile.new(@dir_path, file)
-      file_row_list << file_row.format
-    end
-
-    file_row_list = file_row_list.reverse if reverse?
-    transpose(file_row_list).join("\n")
-  end
-
-  def long_format_row_list
-    file_row_list = []
-    total_block = 0
-
-    file_name_list.sort.each do |file|
-      file_row = LongFormatFile.new(@dir_path, file)
-      file_row_list << file_row.format
-      total_block += file_row.stat.blocks
-    end
-
-    file_row_list = file_row_list.reverse if reverse?
-    file_row_list.unshift("total #{total_block}").join("\n")
-  end
-
-  def transpose(file_row_list)
-    transposed_file_row_list = []
-    short_format_row_num.times { transposed_file_row_list << '' }
-
-    file_row_list.each_with_index do |name, idx|
-      formated_name = name.ljust(name_max_length + 2)
-      row_idx = idx % short_format_row_num
-      transposed_file_row_list[row_idx] += formated_name
-    end
-
-    transposed_file_row_list.map(&:strip)
-  end
-
-  def short_format_row_num
-    (file_name_list.count.to_f / SHORT_FORMAT_COLUMN_NUM).ceil
-  end
-
-  def name_max_length
-    file_name_list.max_by(&:length).length
+  def count
+    @count ||= get.count
   end
 end

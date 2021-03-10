@@ -2,10 +2,13 @@
 # frozen_string_literal: true
 
 require_relative 'file_list'
+require_relative '../lib/parameter'
+require_relative '../lib/format_file_list'
 
 require 'optparse'
 
-params = ARGV.getopts('alr')
+option = ARGV.getopts('alr')
 input_dir = ARGV[0]
+parameter = Parameter.new(input_dir, option)
 
-puts FileList.new(input_dir, params).load
+puts FormatFileList.new(parameter).get

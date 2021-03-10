@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
-require_relative '../lib/file_list'
+require_relative '../lib/format_file_list'
+require_relative '../lib/parameter'
 
 class FileListTest < MiniTest::Unit::TestCase
   DIR_PATH = './08.ls_object/test/sample_dir/lsDir'
@@ -11,8 +12,9 @@ class FileListTest < MiniTest::Unit::TestCase
       Dir_a       file_a.txt  file_c.txt
       Dir_b       file_b.txt  file_d.txt
     TEXT
-    params = { 'a' => false, 'r' => false, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => false, 'r' => false, 'l' => false }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 
   def test_option_dot_match
@@ -23,8 +25,9 @@ class FileListTest < MiniTest::Unit::TestCase
       .Dir_B       Dir_a        file_d.txt
       .file_A.txt  Dir_b
     TEXT
-    params = { 'a' => true, 'r' => false, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => true, 'r' => false, 'l' => false }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 
   def test_reverse
@@ -32,8 +35,9 @@ class FileListTest < MiniTest::Unit::TestCase
       file_d.txt  file_b.txt  Dir_b
       file_c.txt  file_a.txt  Dir_a
     TEXT
-    params = { 'a' => false, 'r' => true, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => false, 'r' => true, 'l' => false }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 
   def test_reverse_dot_match
@@ -44,8 +48,9 @@ class FileListTest < MiniTest::Unit::TestCase
       file_a.txt   .file_B.txt  .
       Dir_b        .file_A.txt
     TEXT
-    params = { 'a' => true, 'r' => true, 'l' => false }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => true, 'r' => true, 'l' => false }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 
   def test_option_long
@@ -58,8 +63,9 @@ class FileListTest < MiniTest::Unit::TestCase
       -rw-r--r--  1 yana  staff  27  3  9 17:52 file_c.txt
       -rw-r--r--  1 yana  staff  44  3  9 17:52 file_d.txt
     TEXT
-    params = { 'a' => false, 'r' => false, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => false, 'r' => false, 'l' => true }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 
   def test_option_long_and_dot_match
@@ -80,8 +86,9 @@ class FileListTest < MiniTest::Unit::TestCase
       -rw-r--r--  1 yana  staff  27  3  9 17:52 file_c.txt
       -rw-r--r--  1 yana  staff  44  3  9 17:52 file_d.txt
     TEXT
-    params = { 'a' => true, 'r' => false, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => true, 'r' => false, 'l' => true }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 
   def test_option_long_and_reverse
@@ -94,8 +101,9 @@ class FileListTest < MiniTest::Unit::TestCase
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_b
       drwxr-xr-x  2 yana  staff  64  3  3 17:26 Dir_a
     TEXT
-    params = { 'a' => false, 'r' => true, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => false, 'r' => true, 'l' => true }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 
   def test_option_long_and_reverse_and_dot_match
@@ -116,7 +124,8 @@ class FileListTest < MiniTest::Unit::TestCase
       drwxr-xr-x  4 yana  staff  128  3  8 19:14 ..
       drwxr-xr-x 14 yana  staff  448  3  9 17:52 .
     TEXT
-    params = { 'a' => true, 'r' => true, 'l' => true }
-    assert_equal expected, FileList.new(DIR_PATH, params).load
+    option = { 'a' => true, 'r' => true, 'l' => true }
+    parameter = Parameter.new(DIR_PATH, option)
+    assert_equal expected, FormatFileList.new(parameter).get
   end
 end
