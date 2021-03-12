@@ -5,8 +5,6 @@ require_relative '../lib/long_format_file'
 require_relative '../lib/short_format_file'
 
 class FormatFileList
-  attr_reader :short_format_row_num, :file_list
-
   SHORT_FORMAT_COLUMN_NUM = 3
 
   def initialize(parameter)

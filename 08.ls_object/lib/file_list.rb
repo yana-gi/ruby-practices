@@ -4,8 +4,6 @@ require_relative '../lib/long_format_file'
 require_relative '../lib/short_format_file'
 
 class FileList
-  attr_reader :max_name_length, :count
-
   def initialize(parameter)
     @parameter = parameter
   end

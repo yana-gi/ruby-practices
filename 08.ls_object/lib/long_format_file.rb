@@ -3,8 +3,6 @@
 require 'etc'
 
 class LongFormatFile
-  attr_reader :stat
-
   NUM_CONVERT_MAP = {
     0 => '---', 1 => '--x', 2 => '-w-', 3 => '-wx',
     4 => 'r--', 5 => 'r-x', 6 => 'rw-', 7 => 'rwx'
@@ -13,8 +11,10 @@ class LongFormatFile
   def initialize(file_path, file_name)
     @file_path = file_path
     @file_name = file_name
-    @file_full_path = "#{file_path}/#{file_name}"
-    @stat = File.lstat(@file_full_path)
+  end
+
+  def stat
+    @stat ||= File.lstat("#{@file_path}/#{@file_name}")
   end
 
   def format
@@ -24,7 +24,7 @@ class LongFormatFile
   private
 
   def filemode
-    case @stat.ftype
+    case stat.ftype
     when 'directory'
       'd'
     when 'file'
@@ -55,13 +55,5 @@ class LongFormatFile
 
   def timestamp
     @stat.mtime.strftime('%_m %_d %R')
-  end
-
-  def filename
-    if FileTest.symlink?(@file_full_path)
-      "#{@file_name} -> #{File.readlink(@file_full_path)}"
-    else
-      @file_name
-    end
   end
 end
